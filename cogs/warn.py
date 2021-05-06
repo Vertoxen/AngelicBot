@@ -169,6 +169,42 @@ class Warn(commands.Cog):
                     print(key)
                     return
 
+    @commands.command(aliases=["warns"])
+    async def warnings(self, ctx, member: discord.Member = None):
+        cursor = await db.cursor()
+
+        if member is None:
+            USER_ID = ctx.author.id
+
+            await cursor.execute(f"SELECT * FROM main WHERE user_id={USER_ID}")
+            result_userInfo = await cursor.fetchall()
+
+            if result_userInfo is None:
+                em = discord.Embed(
+                    title = "Warnings!",
+                    description = "You currently have no warnings!",
+                    color = discord.Colour.green()
+                )
+
+                await ctx.send(embed=em)
+                return
+
+            else:
+                em = discord.Embed(
+                    title = "Warnings!",
+                    color = discord.Colour.orange()
+                )
+
+                for i, x in enumerate(result_userInfo, 0):
+                    em.add_field(
+                        name = f"Case #{x[1]}",
+                        value = f"**Reason:** {x[2]}\n**Moderator:** {x[6]}",
+                        inline = False
+                    )
+
+                await ctx.send(embed=em)
+                return
+
 def setup(bot):
     bot.add_cog(Warn(bot))
     print("( \ ) -- Warn is loaded! -- ( / )")

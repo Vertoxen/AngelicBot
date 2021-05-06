@@ -538,6 +538,32 @@ class Moderation(commands.Cog):
             await ctx.send(embed=em)
             return
 
+    @commands.command(aliases=["purgeall", "clearall"])
+    async def nuke(self, ctx):
+        if ctx.message.author.guild_permissions.administrator:
+            channel = ctx.channel
+
+            await channel.purge(limit=999999999)
+
+            em = discord.Embed(
+                title = "Nuked!",
+                description = "The chat has been nuked!",
+                color = discord.Colour.green()
+            )
+
+            await channel.send(embed=em, delete_after=5.0)
+            return
+
+        else:
+            em = discord.Embed(
+                title = "Error!",
+                description = "You don't have permission to execute this command!",
+                color = discord.Colour.red()
+            )
+
+            await ctx.send(embed=em)
+            return
+
 def setup(bot):
     bot.add_cog(Moderation(bot))
     print("( \ ) -- Moderation is loaded! -- ( / )")

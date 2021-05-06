@@ -109,7 +109,7 @@ class Misc(commands.Cog):
 
     @commands.command(aliases=['ad'])
     @commands.cooldown(1, 60 * 60 * 60 * 3, BucketType.user)
-    async def advertise(self, ctx, inv: discord.Invite = None, *, desc: Optional[str] = "No Description Provided!"):
+    async def advertise(self, ctx, inv: discord.Invite.url = None, *, desc: Optional[str] = "No Description Provided!"):
         if discord.Invite is None:
             em = discord.Embed(
                 title="Error!",

@@ -1,4 +1,6 @@
 import pprint
+import traceback
+import aiostream
 
 import discord
 import motor.motor_asyncio
@@ -125,14 +127,37 @@ class Leveling(commands.Cog):
 
     @commands.command(aliases=["levels", "leader", "lead"])
     async def leaderboard(self, ctx):
-        em = discord.Embed(
-            title = "Error!",
-            description = "Commands still in the works!",
-            color = discord.Colour.red()
-        )
+        try:
+            results = cursor.find({})
+            results.sort("level", -1)
+            results.limit(5)
 
-        await ctx.send(embed=em)
-        return
+            em = discord.Embed(
+                title = "Leaderboard",
+                color = discord.Colour.green()
+            )
+
+            async for num, result in aiostream.stream.enumerate(results, 1):
+                em.add_field(
+                    name=f"{num}. {result['user']}#{result['discriminator']}",
+                    value=f"**Level:** `{result['level']}`\n**XP:** `{result['xp']}`",
+                    inline=False
+                )
+
+            await ctx.send(embed=em)
+            return
+
+        except Exception as e:
+            em = discord.Embed(
+                title = "Error!",
+                description = "An error has occurred while executing this command!",
+                color = discord.Colour.red()
+            )
+
+            await ctx.send(embed=em)
+
+            print(traceback.format_exc())
+            return
 
 def setup(bot):
     bot.add_cog(Leveling(bot))
