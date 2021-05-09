@@ -26,9 +26,18 @@ class Moderation(commands.Cog):
                 color=discord.Colour.red()
             )
 
+            em.add_field(
+                name = "Usage",
+                value = "`a-mute {userMention} {insertHours} {reasonText}`",
+                inline = False
+            )
+
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
         if hours is None:
@@ -38,9 +47,18 @@ class Moderation(commands.Cog):
                 color=discord.Colour.red()
             )
 
+            em.add_field(
+                name="Usage",
+                value="`a-mute {userMention} {insertHours} {reasonText}`",
+                inline=False
+            )
+
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
         if user == ctx.author:
@@ -50,9 +68,18 @@ class Moderation(commands.Cog):
                 color=discord.Colour.red()
             )
 
+            em.add_field(
+                name="Usage",
+                value="`a-mute {userMention} {insertHours} {reasonText}`",
+                inline=False
+            )
+
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
         else:
@@ -197,22 +224,55 @@ class Moderation(commands.Cog):
 
                 em.set_footer(text=FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
     @commands.command()
     async def ban(self, ctx, user: discord.Member, *, reason: Optional[str] = "No reason provided."):
         if ctx.message.author.guild_permissions.ban_members:
-            if user.top_role >= ctx.author.top_role:
+            if user is None:
                 em = discord.Embed(
-                    title="Error!",
-                    description="You can only ban people below you!",
-                    color=discord.Colour.red()
+                    title = "Error!",
+                    description = "Please mention the user that you want to ban!",
+                    color = discord.Colour.red()
+                )
+
+                em.add_field(
+                    name="Usage",
+                    value="`a-ban {userMention} {reasonText}`",
+                    inline=False
                 )
 
                 em.set_footer(text=FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
+                return
+
+            if user.top_role >= ctx.author.top_role:
+                em = discord.Embed(
+                    title="Error!",
+                    description="You can only ban people below your role!",
+                    color=discord.Colour.red()
+                )
+
+                em.add_field(
+                    name = "Usage",
+                    value = "`a-ban {userMention} {reasonText}`",
+                    inline = False
+                )
+
+                em.set_footer(text=FOOTER)
+
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
             if user == ctx.author:
@@ -222,9 +282,18 @@ class Moderation(commands.Cog):
                     color=discord.Colour.red()
                 )
 
+                em.add_field(
+                    name = "Usage",
+                    value = "`a-ban {userMention} {reasonText}`",
+                    inline = False
+                )
+
                 em.set_footer(text=FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
             else:
@@ -301,7 +370,10 @@ class Moderation(commands.Cog):
 
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
     @commands.command()
@@ -314,9 +386,18 @@ class Moderation(commands.Cog):
                     color=discord.Colour.red()
                 )
 
+                em.add_field(
+                    name = "Usage",
+                    value = "`a-unban {userID}`",
+                    inline = False
+                )
+
                 em.set_footer(text=FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
             else:
@@ -373,7 +454,10 @@ class Moderation(commands.Cog):
 
                         em.set_footer(text=FOOTER)
 
-                        await ctx.send(embed=em)
+                        await ctx.send(embed=em, delete_after=5.0)
+                        await asyncio.sleep(5.0)
+                        await ctx.message.delete()
+
                         return
 
         else:
@@ -385,16 +469,40 @@ class Moderation(commands.Cog):
 
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
     @commands.command()
     async def kick(self, ctx, user: discord.Member, *, reason: Optional[str] = "No reason provided."):
         if ctx.message.author.guild_permissions.kick_members:
+            if user is None:
+                em = discord.Embed(
+                    title = "Error!",
+                    description = "Please mention the user that you are trying to kick!",
+                    color = discord.Colour.red()
+                )
+
+                em.add_field(
+                    name = "Usage",
+                    value = "`a-kick {userMention} {reasonText}`",
+                    inline = False
+                )
+
+                em.set_footer(text=FOOTER)
+
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
+                return
+
             if user.top_role >= ctx.author.top_role:
                 em = discord.Embed(
                     title="Error!",
-                    description="You can only kick people below you!",
+                    description="You can only kick people below your role!",
                     color=discord.Colour.red()
                 )
 
@@ -410,9 +518,18 @@ class Moderation(commands.Cog):
                     color=discord.Colour.red()
                 )
 
+                em.add_field(
+                    name = "Usage",
+                    value = "`a-kick {userMention} {reasonText}`",
+                    inline = False
+                )
+
                 em.set_footer(text=FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
             else:
@@ -489,7 +606,10 @@ class Moderation(commands.Cog):
 
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
     @commands.command(aliases=["clear"])
@@ -509,10 +629,14 @@ class Moderation(commands.Cog):
 
                 em.set_footer(text = FOOTER)
 
-                await ctx.send(embed=em)
+                await ctx.send(embed=em, delete_after=5.0)
+                await asyncio.sleep(5.0)
+                await ctx.message.delete()
+
                 return
 
             else:
+                await ctx.message.delete()
                 await ctx.channel.purge(limit=amount)
 
                 em = discord.Embed(
@@ -535,7 +659,10 @@ class Moderation(commands.Cog):
 
             em.set_footer(text=FOOTER)
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
     @commands.command(aliases=["purgeall", "clearall"])
@@ -561,7 +688,10 @@ class Moderation(commands.Cog):
                 color = discord.Colour.red()
             )
 
-            await ctx.send(embed=em)
+            await ctx.send(embed=em, delete_after=5.0)
+            await asyncio.sleep(5.0)
+            await ctx.message.delete()
+
             return
 
 def setup(bot):

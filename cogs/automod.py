@@ -41,7 +41,11 @@ class Automod(commands.Cog):
 
         if autoBot:
             if message.author.bot:
+                if isinstance(message.channel, discord.DMChannel):
+                    return
+
                 channel = message.channel
+                category_name = message.channel.category.name
                 channel_name = message.channel.name
 
                 if channel_name == "「➵」-bot-commands":
@@ -51,7 +55,31 @@ class Automod(commands.Cog):
                     return
 
                 if channel_name == "「➵」-level-up":
+                    if message.author.name == "AngelicBot":
+                        return
+
+                    else:
+                        pass
+
+                if channel_name == "「➵」-ticket-support":
                     return
+
+                if category_name == "╸╸╸ 「 Tickets 」 ╺╺╺":
+                    if message.author.name == "AngelicBot":
+                        return
+
+                    else:
+                        pass
+
+                if channel_name == "「➵」-logs":
+                    return
+
+                if channel_name == "「➵」-ticket-logs":
+                    if message.author.name == "AngelicBot":
+                        return
+
+                    else:
+                        pass
 
                 else:
                     await message.delete()

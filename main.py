@@ -12,7 +12,7 @@ TOKEN = "ODM0MTA1MDc4NjYyMDM3NTc1.YH8C4w.ATlSr5-Ft7AyGA1rHEl1-PxXrnU"
 INVITE = "https://discord.com/api/oauth2/authorize?client_id=822632273278140466&permissions=201714753&scope=bot"
 STATUS = [f"a-help | AngelicNodes", "all the users! | AngelicNodes"]
 
-os.chdir(r"/home/yaminahmed47/Coding Folder/Python/AngelicBot")
+os.chdir(r"/home/yaminahmed47/Coding/Python/AngelicBot")
 
 async def change_status():
     await client.wait_until_ready()

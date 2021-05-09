@@ -107,53 +107,6 @@ class Misc(commands.Cog):
             await self.suggest_channel.send(embed=emSuggest)
             return
 
-    @commands.command(aliases=['ad'])
-    @commands.cooldown(1, 60 * 60 * 60 * 3, BucketType.user)
-    async def advertise(self, ctx, inv: discord.Invite.url = None, *, desc: Optional[str] = "No Description Provided!"):
-        if discord.Invite is None:
-            em = discord.Embed(
-                title="Error!",
-                description="No Invite Link Found!",
-                color=discord.Colour.red()
-            )
-
-            em.add_field(
-                name="Usage",
-                value="`a-advertise {inviteLink} {descriptionText}`",
-                inline=False
-            )
-
-            await ctx.send(embed=em)
-            return
-
-        else:
-            emAd = discord.Embed(
-                title=f"{inv.guild.name}",
-                url=f"{inv.url}",
-                timestamp=datetime.utcnow(),
-                color=discord.Colour.blue()
-            )
-
-            emAd.add_field(
-                name="Description",
-                value=f"{desc}",
-                inline=False
-            )
-
-            emAd.set_thumbnail(url=inv.guild.icon_url)
-
-            await self.ad_channel.send(embed=emAd)
-
-            em = discord.Embed(
-                title="Successful!",
-                description="Your ad has successfully been posted!",
-                color=discord.Colour.green()
-            )
-
-            await ctx.send(embed=em)
-            return
-
-
 def setup(bot):
     bot.add_cog(Misc(bot))
     print("( \ ) -- Misc has loaded -- ( / )")

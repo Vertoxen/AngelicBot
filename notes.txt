@@ -1,2 +1,2 @@
-mongodb://vertoxen:omegamemes567@de1.centronodes.com:25930/?authMechanism=DEFAULT&authSource=economy&retryWrites=true&w=majority
+mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&retryWrites=true&w=majority
 ^^^ How to connect on panel
