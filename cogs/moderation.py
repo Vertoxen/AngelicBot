@@ -18,6 +18,7 @@ class Moderation(commands.Cog):
     @commands.command()
     async def mute(self, ctx, user: discord.Member, hours: int, *, reason: Optional[str] = "No reason provided."):
         USER_NAME = str(ctx.author)
+        
 
         if user is None:
             em = discord.Embed(
@@ -85,11 +86,11 @@ class Moderation(commands.Cog):
         else:
             OTHER_NAME = str(user)
 
-            sup1 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 1', ctx.message.server.roles)
-            sup2 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 2', ctx.message.server.roles)
-            sup3 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 3', ctx.message.server.roles)
-            manager = discord.utils.find(lambda r: r.name == '「 ➣ 」 Management', ctx.message.server.roles)
-            executives = discord.utils.find(lambda r: r.name == '╸╸╸ 「 Executive 」 ╺╺╺', ctx.message.server.roles)
+            sup1 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 1', ctx.message.guild.roles)
+            sup2 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 2', ctx.message.guild.roles)
+            sup3 = discord.utils.find(lambda r: r.name == '「 ➣ 」 Support-Lvl 3', ctx.message.guild.roles)
+            manager = discord.utils.find(lambda r: r.name == '「 ➣ 」 Management', ctx.message.guild.roles)
+            executives = discord.utils.find(lambda r: r.name == '╸╸╸ 「 Executive 」 ╺╺╺', ctx.message.guild.roles)
 
             allowed = [sup1, sup2, sup3, manager, executives]
 

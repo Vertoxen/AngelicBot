@@ -12,15 +12,11 @@ import io
 from discord.ext import commands
 from motor.motor_asyncio import AsyncIOMotorClient
 
-cluster = AsyncIOMotorClient(
-    'mongodb+srv://vertoxen:omegamemes567@leveldb.tme6j.mongodb.net/?retryWrites=true&w=majority'
-                             )
-injection = AsyncIOMotorClient(
-    'mongodb+srv://vertoxen:omegamemes567@leveldb.tme6j.mongodb.net/?retryWrites=true&w=majority'
-                             )
+cluster = AsyncIOMotorClient("mongodb://vertoxen:omegamemes567@private-1.arknodes.com:25700/main?authMechanism=DEFAULT&retryWrites=true&w=majority")
+injection = AsyncIOMotorClient("mongodb://vertoxen:omegamemes567@private-1.arknodes.com:25700/main?authMechanism=DEFAULT&retryWrites=true&w=majority")
 
-db = cluster['ticket']
-injector = injection['ticket']
+db = cluster['main']
+injector = injection['main']
 cursor = db['count']
 inject = injector['main']
 
@@ -301,7 +297,7 @@ class Ticket(commands.Cog):
 
         em.add_field(
             name = "Before Creating Ticket!",
-            value = "```Please create a ticket only if you think it's important, this can't be stressed enough because community-support is a thing! So just beware, creating an unnessasary ticket will lead to a warning!```",
+            value = "```Please create a ticket only if you think it's crucial! This cannot be stressed enough due to the existence of the community-support channel! So just beware, creating an unnecessary ticket will lead to a warning!```",
             inline = False
         )
 

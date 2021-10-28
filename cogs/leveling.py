@@ -12,8 +12,8 @@ from datetime import datetime
 from discord.ext import commands
 from motor.motor_asyncio import AsyncIOMotorClient
 
-cluster = AsyncIOMotorClient("mongodb+srv://vertoxen:omegamemes567@leveldb.tme6j.mongodb.net/?retryWrites=true&w=majority")
-db = cluster['leveling']
+cluster = AsyncIOMotorClient("mongodb://vertoxen:omegamemes567@private-1.arknodes.com:25700/main?authMechanism=DEFAULT&retryWrites=true&w=majority")
+db = cluster['main']
 cursor = db['levels']
 
 class Leveling(commands.Cog):
@@ -134,7 +134,7 @@ class Leveling(commands.Cog):
 
             em = discord.Embed(
                 title = "Leaderboard",
-                color = discord.Colour.green()
+                color = discord.Colour.blue()
             )
 
             async for num, result in aiostream.stream.enumerate(results, 1):

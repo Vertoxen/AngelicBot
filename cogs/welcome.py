@@ -33,14 +33,14 @@ class Welcome(commands.Cog):
             )
 
             emChannel.set_footer(text="Please check out #「➵」-verify !", icon_url=member.avatar_url)
-            emChannel.set_thumbnail(url=member.avatar_url)
+            emChannel.set_thumbnail(url=self.bot.user.avatar_url)
 
             await self.welcome_channel.send(embed=emChannel)
 
             emDM = discord.Embed(
                 title = "Welcome to AngelicNodes!",
-                description = f"Hi there **{member.name}**! I would like to personally welcome you to **AngelicNodes** "
-                              f"even though I am a bot! Please have a look around, maybe look at the rules, after you "
+                description = f"Hi there **{member.name}**! I would like to personally welcome you to **AngelicNodes**! "
+                              f"Please have a look around, maybe look at the rules, after you "
                               f"have verified yourself! Don't know how? It's as simple as reading the steps that are "
                               f"written in <#834200691912081458>! Good luck!",
                 color = discord.Colour.blue()
@@ -71,7 +71,7 @@ class Welcome(commands.Cog):
                 color = discord.Colour.green()
             )
 
-            em.set_footer(text="Bots are important for a Discord server!")
+            em.set_footer(text="Bots are important for the Discord Server!")
 
             await self.welcome_channel.send(embed=em)
 
@@ -86,7 +86,7 @@ class Welcome(commands.Cog):
                 color = discord.Colour.blue()
             )
 
-            em.set_footer(text = "Hope they come back to us one day...")
+            em.set_footer(text = "I hope they join us again one day...")
 
             await self.leave_channel.send(embed=em)
 

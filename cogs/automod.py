@@ -15,7 +15,7 @@ class Automod(commands.Cog):
         if autoInv:
 
             invLink = ["discord.gg", "disboard.org", "top.gg", "disforge.com", "discord.st",
-                       "discordservers.com", "discordbee.com", "discordea.net", "discords.com"]
+                        "discordservers.com", "discordbee.com", "discordea.net", "discords.com"]
 
             for link in invLink:
                 if link in message.content:
@@ -31,8 +31,8 @@ class Automod(commands.Cog):
                     await message.delete()
 
                     em = discord.Embed(
-                        name = "No Advertising!",
-                        description = "Advertising is not allowed!",
+                        name = "Error!",
+                        description = "You are not allowed to advertise!",
                         color = discord.Colour.red()
                     )
 
@@ -70,6 +70,9 @@ class Automod(commands.Cog):
 
                     else:
                         pass
+                    
+                if category_name == "╸╸╸ 「 Verification 」 ╺╺╺":
+                    return
 
                 if channel_name == "「➵」-logs":
                     return
@@ -84,10 +87,7 @@ class Automod(commands.Cog):
                 else:
                     await message.delete()
 
-    @commands.command()
-    async def test(self, ctx):
-        await ctx.send("test")
-
 def setup(bot):
     bot.add_cog(Automod(bot))
+    print("-----------------------------------")
     print("( \ ) -- Auto-Mod is ready! -- ( / )")

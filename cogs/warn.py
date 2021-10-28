@@ -8,9 +8,9 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from typing import Optional
 from discord.ext import commands
 
-cluster = AsyncIOMotorClient("mongodb+srv://vertoxen:omegamemes567@leveldb.tme6j.mongodb.net/?retryWrites=true&w=majority")
+cluster = AsyncIOMotorClient("mongodb://vertoxen:omegamemes567@private-1.arknodes.com:25700/main?authMechanism=DEFAULT&retryWrites=true&w=majority")
 
-cdb = cluster['count']
+cdb = cluster['main']
 counter = cdb['counter']
 
 db = aiosqlite.connect('warn.sqlite')

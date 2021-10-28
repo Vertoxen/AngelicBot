@@ -1,37 +1,16 @@
-mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&retryWrites=true&w=majority
-^^^ How to connect on panel
+import discord
+import os
+import string
+import fnmatch
+import asyncio
+import random
 
-@commands.command()
-    async def verifypost(self, ctx):
-        em = discord.Embed(
-                title = "Verification",
-                description = "You will need to verify whether you are a bot/alt account by using our captcha system!",
-                color = discord.Colour.blue()
-            )
-            
-        em.set_footer = "Verify yourself in-order to gain access to the server!"
-        em.set_thumbnail(url=self.bot.user.avatar_url)
-            
-        em.add_field(
-                name = "Step 1",
-                value = "React to this message with a ✅ emoji!",
-                inline = False
-            )
-            
-        em.add_field(
-                name = "Step 2",
-                value = "Please check your DMs for any message. (Please make sure your DMs are on, otherwise this will not work!)",
-                inline = False 
-            )
-            
-        em.add_field(
-                name = "Step 3",
-                value = "Once you've completed the captcha, you should have access to the server!",
-                inline = False
-            )
-            
-        await ctx.channel.send(embed=em)
-        return
+from discord.ext import commands
+from captcha.image import ImageCaptcha
+
+class Verify(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
         
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -55,7 +34,7 @@ mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&
                 await message.remove_reaction('✅', user)
                 
                 try:
-                    await user.send("This is a test message in-order to check if the bot can actually DM you! Please ignore this!")
+                    await user.send("This is a test message in-order to check if the bot can actually DM you! Please ignore this!", delete_after=3.0)
                     
                 except:
                     return
@@ -63,7 +42,7 @@ mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&
                 image = ImageCaptcha(width = 280, height = 90)
                     
                 ranStr = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
-                data = image.generate(f'{ranStr}')
+                image.write(f'{ranStr}', f"/home/yamin/Coding/Discord/Discord-PY/AngelicBot/cogs/captchaImgs/captcha{ranStr}.png")
                 
                 em = discord.Embed(
                     title = "Verification Message!",
@@ -72,13 +51,16 @@ mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&
                 )
                 
                 em.set_footer(text="Complete this captcha in-order to verify yourself! You have 15 seconds!")
-                em.set_image(data)
+                file = discord.File(f"/home/yamin/Coding/Discord/Discord-PY/AngelicBot/cogs/captchaImgs/captcha{ranStr}.png", filename="image.png")
+                em.set_image(url="attachment://image.png")
                 em.set_thumbnail(url=self.bot.user.avatar_url)
                 
-                await user.send(embed=em)
+                await user.send(file=file, embed=em)
+                
+                if os.path.exists(f'/home/yamin/Coding/Discord/Discord-PY/AngelicBot/cogs/captchaImgs/captcha{ranStr}.png'):
+                    os.remove(f"/home/yamin/Coding/Discord/Discord-PY/AngelicBot/cogs/captchaImgs/captcha{ranStr}.png")
                 
                 msg = await self.bot.wait_for('message', check=lambda m: m.author == user and m.channel == user.dm_channel,timeout=15)
-                await asyncio.sleep(15)
                 
                 if msg.content is None:
                     emb = discord.Embed(
@@ -122,3 +104,47 @@ mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&
                     
                     await user.send(embed=embed)
                     return
+    
+    @commands.command()
+    async def verify(self, ctx):
+        role = discord.utils.find(lambda r: r.name == "╸╸╸ 「 Executive 」 ╺╺╺", ctx.guild.roles)
+
+        if role in ctx.author.roles:        
+            em = discord.Embed(
+                    title = "Verification",
+                    description = "You will need to verify whether you are a bot/alt account by using our captcha system!",
+                    color = discord.Colour.blue()
+                )
+                
+            em.set_footer(text="Verify yourself in-order to gain access to the server!")
+            em.set_thumbnail(url=self.bot.user.avatar_url)
+                
+            em.add_field(
+                    name = "Step 1",
+                    value = "React to this message with a ✅ emoji!",
+                    inline = False
+                )
+                
+            em.add_field(
+                    name = "Step 2",
+                    value = "Please check your DMs for any message. (Please make sure your DMs are on, otherwise this will not work!)",
+                    inline = False 
+                )
+                
+            em.add_field(
+                    name = "Step 3",
+                    value = "Once you've completed the captcha, you should have access to the server!",
+                    inline = False
+                )
+                
+            msg = await ctx.channel.send(embed=em)
+            
+            await msg.add_reaction('✅')
+            return
+        
+        else:
+            return
+
+def setup(bot):
+    bot.add_cog(Verify(bot))
+    print("( \ ) -- Verify is loaded! -- ( / )")

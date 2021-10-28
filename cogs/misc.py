@@ -45,11 +45,10 @@ class Misc(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
             sec = timedelta(seconds=int(error.retry_after))
-            d = datetime(1, 1, 1) + sec
 
             em = discord.Embed(
                 title="Cooldown!",
-                description=f"Please wait for `{d.day - 1}days {d.hour}hours {d.minute}mins {d.second}seconds`!",
+                description=f"Please wait for `{sec}`!",
                 color=discord.Colour.red()
             )
 
@@ -104,7 +103,11 @@ class Misc(commands.Cog):
             emSuggest.set_thumbnail(url=ctx.author.avatar_url)
             emSuggest.set_footer(text=f"Suggestion by {str(ctx.author)}!", icon_url=ctx.author.avatar_url)
 
-            await self.suggest_channel.send(embed=emSuggest)
+            msg = await self.suggest_channel.send(embed=emSuggest)
+            
+            await msg.add_reaction(u"\u2705") # yes
+            await msg.add_reaction(u"\U0001F6AB") # no
+            
             return
 
 def setup(bot):
