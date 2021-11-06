@@ -34,7 +34,7 @@ class Verify(commands.Cog):
                 await message.remove_reaction('✅', user)
                 
                 try:
-                    await user.send("This is a test message in-order to check if the bot can actually DM you! Please ignore this!", delete_after=3.0)
+                    await user.send("This is a test message in-order to check if the bot can actually DM you! Please ignore this!", delete_after=1.0)
                     
                 except:
                     return

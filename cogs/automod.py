@@ -1,7 +1,11 @@
 import discord
 import asyncio
+import json
 
 from discord.ext import commands
+
+with open('/home/yamin/Coding/Discord/Discord-PY/AngelicBot/cogs/message.json') as file:
+    scam_links = json.load(file)
 
 class Automod(commands.Cog):
     def __init__(self, bot):
@@ -11,14 +15,28 @@ class Automod(commands.Cog):
     async def on_message(self, message):
         autoInv = True
         autoBot = True
+        autoScam = True
 
+        if autoScam:
+            for scam in scam_links:
+                if f"{scam}/" in message.content:
+                    em = discord.Embed(
+                        title = "No Scam Links",
+                        description = "I'm sorry but any message that mentions scam links will get deleted!",
+                        color = discord.Color.red()
+                    )
+                    
+                    await message.delete()
+                    await message.channel.send(embed=em)
+                    return
+        
         if autoInv:
 
             invLink = ["discord.gg", "disboard.org", "top.gg", "disforge.com", "discord.st",
                         "discordservers.com", "discordbee.com", "discordea.net", "discords.com"]
 
             for link in invLink:
-                if link in message.content:
+                if f"{link}/" in message.content:
                     getChannel = message.channel
                     getCategory = getChannel.category
 
@@ -31,7 +49,7 @@ class Automod(commands.Cog):
                     await message.delete()
 
                     em = discord.Embed(
-                        name = "Error!",
+                        name = "Warned!",
                         description = "You are not allowed to advertise!",
                         color = discord.Colour.red()
                     )
@@ -72,7 +90,11 @@ class Automod(commands.Cog):
                         pass
                     
                 if category_name == "╸╸╸ 「 Verification 」 ╺╺╺":
-                    return
+                    if message.author.name == "AngelicBot":
+                        return
+
+                    else:
+                        pass
 
                 if channel_name == "「➵」-logs":
                     return
