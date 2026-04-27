@@ -1,6 +1,3 @@
-mongodb://vertoxen:omegamemes567@de1.luckynodes.tk:18136/?authMechanism=DEFAULT&retryWrites=true&w=majority
-^^^ How to connect on panel
-
 @commands.command()
     async def verifypost(self, ctx):
         em = discord.Embed(
